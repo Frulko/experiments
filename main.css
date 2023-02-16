@@ -1,0 +1,24 @@
+
+body{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  padding: 200px 0; 
+}
+
+
+.proto__sandbox{
+  border-radius:4px;
+  width: 100%;
+  max-width: 800px;
+  border: 1px solid #ccc;
+  height: 400px;
+  overflow: hidden;
+}
+
+.proto__sandbox + .proto__sandbox{
+  margin-top: 32px;
+}
