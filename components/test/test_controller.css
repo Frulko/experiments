@@ -1,0 +1,27 @@
+
+
+
+.proto__sandbox{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 96px;
+  line-height: 100%;
+  padding: 20px;
+  text-align: center;
+}
+
+.proto__sandbox h2{
+  line-height: 100%
+}
+
+.sandbox__test .sandbox__wrapper{
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 96px;
+  line-height: 100%;
+  padding: 20px;
+  text-align: center;
+}

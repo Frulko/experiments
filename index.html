@@ -8,14 +8,10 @@
   <link rel="stylesheet" href="main.css">
 </head>
 <body>
+  <ui-sandbox data-component="marquee" data-caption="Marquee" data-text="A simple guide to 🚀" data-direction="1"></ui-sandbox>
+  <ui-sandbox data-component="marquee" class="custom" data-caption="Marquee - reverse direction" data-text="A simple guide to 🚀" data-direction="-1"></ui-sandbox>
+  <ui-sandbox data-component="matter" loading="lazy" autoplay="true" data-caption="Matter.js - Hello world"></ui-sandbox>
 
-  <div class="proto__sandbox" data-controller="matter" data-text="42"></div>
-  <div class="proto__sandbox" data-controller="matter" data-text="42"></div>
-  <div class="proto__sandbox" data-controller="matter" data-text="42"></div>
-  <div class="proto__sandbox" data-controller="matter" data-text="42"></div>
-  <div class="proto__sandbox" data-controller="test" data-text="42"></div>
-  <div class="proto__sandbox" data-controller="test" data-text="hello, world!" data-foo="42"></div>
-  <div class="proto__sandbox" data-controller="test" data-text="Vas-y Paulette" data-foo="bar"></div>
 
   <script src="main.mjs" type="module"></script>
 </body>

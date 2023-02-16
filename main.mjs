@@ -1,15 +1,21 @@
 
-console.log('-here');
 
-document.querySelectorAll('*[data-controller]').forEach((el) => {
-  const controllerPath = './controllers/';
-  const controllerName = el.getAttribute('data-controller');
-  const fullModuleName = `${controllerPath}${controllerName}_controller.mjs`;
+
+
+
+const loadComponent = (el, name) => {
+  const controllerPath = './components/';
+  const controllerName = name;
+  const fullModuleName = `${controllerPath}${controllerName}_module.mjs`;
 
   import(fullModuleName).then(async (m) => {
     
     if (m.css) {
-      m.css.map((file) => `${controllerPath}${file}`).forEach((file) => loadCSS(file, controllerName));
+      // m.css.map((file) => `${controllerPath}${file}`).forEach((file) => loadCSS(file, controllerName));
+      for (let i = 0; i < m.css.length; i++) {
+        const file = m.css[i];
+        await loadCSS(`${controllerPath}${file}`, controllerName);
+      }
     }
 
     if(m.js) {
@@ -20,23 +26,21 @@ document.querySelectorAll('*[data-controller]').forEach((el) => {
       }
     }
 
-    m.connect(el, getDataFromElementAttributes(el));
+    m.connect(el, getDataFromElementAttributes(el.parentNode));
   }).catch((err) => {
     console.error(err);
   })
-})
+}
 
+// document.querySelectorAll('*[data-component]').forEach(loadComponent);
 
 const parseAttributeValue = (inputValue) => {
-  let outputValue = /^\d+$/.test(inputValue) ? +inputValue: inputValue;
-  switch (inputValue) {
-    case 'true':
-      outputValue = true;
-      break;
-    case 'false':
-      outputValue = false;
-        break;
+  let outputValue = /^-?\d+$/.test(inputValue) ? +inputValue: inputValue; // test if number
+
+  if (/^true|false$/i.test(inputValue)) { // test if boolean
+    outputValue = inputValue === 'true';
   }
+
   return outputValue;
 }
 
@@ -54,38 +58,105 @@ const getDataFromElementAttributes = (el) => {
   return attributes;
 }
 
+
+const t = {}
+
 const loadCSS = (path, moduleName) => {
   const identifier = `style_${moduleName}`;
-  if (document.getElementById(identifier)) {
-    return; //skip already loaded
+
+  if (typeof t[identifier] === 'undefined') {
+    t[identifier] = {
+      loaded: false,
+      error: false,
+      refs: [],
+      update: () => {
+        const m = t[identifier];
+        if (!(m.loaded || m.error)) {
+          return;
+        }
+
+        m.refs.forEach(({resolve, reject}) => m.loaded ? resolve(): reject());
+      }
+    };
   }
+
+  if (document.getElementById(identifier)) {
+    t[identifier].update();
+    return new Promise(checkScriptIsLoaded(t[identifier])); //skip already loaded
+  }
+
   const styleEl = document.createElement('link');
-  styleEl.id = identifier
-  styleEl.setAttribute('href', path)
-  styleEl.setAttribute('rel', 'stylesheet')
+  styleEl.id = identifier;
+  styleEl.href = path;
+  styleEl.rel = 'stylesheet';
 
   document.querySelector('head').appendChild(styleEl);
+
+  styleEl.onload = () => {
+    t[identifier].loaded = true;
+    t[identifier].update();
+  }
+
+  styleEl.onerror = () => {
+    t[identifier].error = true;
+  }
+
+  return new Promise(checkScriptIsLoaded(t[identifier]));
+}
+
+
+
+
+const checkScriptIsLoaded = (scriptHandler) => {
+  return (resolve, reject) => {
+    scriptHandler.refs.push({ resolve, reject })
+  }
 }
 
 const loadJS = (path, moduleName) => {
   const identifier = `script_${moduleName}`;
+  
+  if (typeof t[identifier] === 'undefined') {
+    t[identifier] = {
+      loaded: false,
+      error: false,
+      refs: [],
+      update: () => {
+        const m = t[identifier];
+        if (!(m.loaded || m.error)) {
+          return;
+        }
+
+        m.refs.forEach(({resolve, reject}) => m.loaded ? resolve(): reject());
+      }
+    };
+  }
+
+
 
   // issue need a global loading scripts references for resolving only when script is loaded even if multiple controller need it
   if (document.getElementById(identifier)) {
-    return new Promise((resolve) => resolve()); //skip already loaded
+    t[identifier].update();
+    return new Promise(checkScriptIsLoaded(t[identifier])); //skip already loaded
   }
 
   const scriptEl = document.createElement('script');
   scriptEl.id = identifier
-  scriptEl.setAttribute('src', path)
-  scriptEl.setAttribute('type', 'application/javascript')
+  scriptEl.src = path
+  scriptEl.type = 'application/javascript'
 
   document.querySelector('body').appendChild(scriptEl);
 
-  return new Promise((resolve, reject) => {
-    scriptEl.onload = resolve
-    scriptEl.onerror = reject
-  })
+  scriptEl.onload = () => {
+    t[identifier].loaded = true;
+    t[identifier].update();
+  }
+
+  scriptEl.onerror = () => {
+    t[identifier].error = true;
+  }
+
+  return new Promise(checkScriptIsLoaded(t[identifier]));
 }
 
 /**
@@ -94,3 +165,44 @@ const loadJS = (path, moduleName) => {
  * the benefit of using a bundler is to have one js file with all project
  * how to share utils ? the script embed is local to a controller/module
  */
+
+class UISandbox extends HTMLElement {
+  constructor() {
+    // Always call super first in constructor
+    super();
+
+   
+  }
+
+  connectedCallback() {
+    const children = this.innerHTML;
+    this.innerHTML = '';
+
+
+    const loading = this.getAttribute('loading');
+    const autoplay = parseAttributeValue(this.getAttribute('autoplay')) ?? true;
+
+    
+
+    const sandboxWrapperElement = document.createElement('div');
+    sandboxWrapperElement.classList.add('sandbox__wrapper');
+    sandboxWrapperElement.innerHTML = children;
+    this.appendChild(sandboxWrapperElement);
+
+
+    if (this.hasAttribute('data-caption')) {
+      const captionElement = document.createElement('h3');
+      captionElement.classList.add('sandbox__caption');
+      captionElement.innerText = this.getAttribute('data-caption');
+      this.appendChild(captionElement);
+    }
+
+    if (this.hasAttribute('data-component')) {
+      this.classList.add(`sandbox__${this.getAttribute('data-component')}`)
+      autoplay && loadComponent(sandboxWrapperElement, this.getAttribute('data-component'));
+    }
+    
+  }
+}
+
+customElements.define('ui-sandbox', UISandbox)

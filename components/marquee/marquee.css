@@ -1,0 +1,51 @@
+
+.Marquee__Container{
+  display: flex;
+}
+
+.Marquee__Text{
+  font-size: 145px;
+  font-family: system-ui;
+  font-weight: normal;
+  color: #000;
+  line-height: 107px;
+}
+
+.Marquee__Text span{
+  display: inline-block;
+  padding-right: 150px;
+}
+
+.Marquee__Text.clone{
+  margin-left: 0;
+}
+
+
+@keyframes slideinMarquee {
+  from {
+    transform: translate3d(calc(-50% - 10px), 0, 0);
+  }
+  
+  to {
+    transform: translate3d(0%, 0, 0);
+  }
+}
+
+
+
+
+
+.sandbox__marquee .sandbox__wrapper{
+  padding: 3rem 0;
+}
+
+.sandbox__marquee.custom .sandbox__wrapper{
+  padding: 1rem 0;
+}
+.sandbox__marquee.custom .Marquee__Text{
+  font-size: 45px;
+}
+
+.sandbox__marquee.custom .Marquee__Text span{
+  padding-right: 20px;
+}
