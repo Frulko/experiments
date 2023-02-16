@@ -1,7 +1,7 @@
 import TestClass from './test/TestClass.js';
 
 export const css = ['test/test_controller.css'];
-export const js = [''];
+export const js = [];
 
 export const connect = (element, data) => {
   const t = new TestClass();

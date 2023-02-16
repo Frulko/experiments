@@ -13,6 +13,7 @@ document.querySelectorAll('*[data-controller]').forEach((el) => {
     }
 
     if(m.js) {
+      // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of
       for (let i = 0; i < m.js.length; i++) {
         const file = m.js[i];
         await loadJS(`${controllerPath}${file}`, controllerName);
@@ -86,3 +87,10 @@ const loadJS = (path, moduleName) => {
     scriptEl.onerror = reject
   })
 }
+
+/**
+ * Maybe need a compiler like webpack or vite or esbuild
+ * output a manifest file (js, json ?) with the name for each controller for importing
+ * the benefit of using a bundler is to have one js file with all project
+ * how to share utils ? the script embed is local to a controller/module
+ */

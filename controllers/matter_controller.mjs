@@ -2,6 +2,8 @@
 
 export const css = [];
 export const js = ['matter/matter.min.js'];
+export const globalJS = [];
+
 
 export const connect = (element, data) => {
   console.log('[matter]', element, data)
