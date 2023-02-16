@@ -18,6 +18,6 @@ export const connect = (element, { text, direction }) => {
     autoplay: true,
     fontFamily: 'system-ui',
     direction,
-    timingAnimation: [1, 500], // 1 sec for 500px
+    timingAnimation: [1, 100], // 1 sec for 500px
   });
 }

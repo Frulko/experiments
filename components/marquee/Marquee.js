@@ -29,6 +29,10 @@ export default class Marquee {
     this.factor = 1;
     this.clear();
     this.checkWidth();
+     setTimeout(() => {
+      this.clear();
+      this.checkWidth();
+    }, 100);
   }
 
   getContainerWidth() {

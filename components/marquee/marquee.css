@@ -23,11 +23,11 @@
 
 @keyframes slideinMarquee {
   from {
-    transform: translate3d(calc(-50% - 10px), 0, 0);
+    transform: translate3d(-60%, 0, 0);
   }
   
   to {
-    transform: translate3d(0%, 0, 0);
+    transform: translate3d(-10%, 0, 0);
   }
 }
 
