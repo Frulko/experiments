@@ -49,3 +49,45 @@
 .sandbox__marquee.custom .Marquee__Text span{
   padding-right: 20px;
 }
+
+
+body{
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: greyscale;
+  scroll-behavior: initial;
+  -webkit-transform:translate3d(0,0,0);
+}
+
+.marquee__container{
+  position: relative;
+  white-space: nowrap;
+  display: inline-flex;
+  transform: translate3d(0, 0, 1px);
+  -webkit-perspective: 1000;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform-style: preserve-3d;
+  /* width: 100vw; */
+  /* overflow-x: hidden */
+
+  /* animation: slideinMarquee 10s linear infinite */
+}
+
+.marquee__group_container{
+  position: relative;
+  white-space: nowrap;
+  display: inline-flex;
+  width: auto
+}
+
+.marquee__track{
+  display: inline-block;
+  box-sizing: border-box;
+  font-size: 0
+}
+
+.marquee__container p{
+  font-size: 3rem;
+  font-weight: 100;
+  /* padding: 0 2rem; */
+  text-transform: uppercase;
+}

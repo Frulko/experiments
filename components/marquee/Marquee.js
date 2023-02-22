@@ -1,3 +1,4 @@
+
 export default class Marquee {
   constructor(opts = {}) {
     this.opts = {
@@ -27,12 +28,63 @@ export default class Marquee {
 
   init() {
     this.factor = 1;
-    this.clear();
-    this.checkWidth();
-     setTimeout(() => {
-      this.clear();
-      this.checkWidth();
-    }, 100);
+    // this.clear();
+    // this.checkWidth();
+    //  setTimeout(() => {
+    //   this.clear();
+    //   this.checkWidth();
+    // }, 100);
+    // if (this.track = document.createElement("div"),
+    // this.track.classList.add("c-rail_track"),
+    // this.el.appendChild(this.track),
+    // this.tracks = [],
+    // this.tracks.push(this.track),
+    // this.shuffle != null) {
+    //     let s = Qn(this.children);
+    //     for (let t of s)
+    //         this.track.appendChild(t)
+    // } else
+    //     for (let s of this.children)
+    //         this.track.appendChild(s)
+    // console.log(this.opts.el.children[0]);
+
+    this.track = this.opts.el.children[0];
+    this.tracks = [this.track];
+
+
+    let s = this.opts.container.getBoundingClientRect().width / this.track.getBoundingClientRect().width;
+    if (s === 1 / 0)
+        throw new Error("Ratio is Infinity");
+    for (var t = 0; t < s; t++) {
+        let e = this.track.cloneNode(!0);
+        this.tracks.push(e),
+        this.opts.el.appendChild(e)
+    }
+
+    const group = document.createElement('div');
+    group.classList.add('marquee__group')
+   
+
+    this.tracks.forEach((track) => {
+      const el = document.createElement('div')
+      el.classList.add('marquee__track')
+      el.appendChild(track)
+      group.appendChild(el)
+    })
+
+    // const a = group.cloneNode(true)
+    // console.log(a.innerHTML);
+
+    this.opts.el.appendChild(group);
+    this.opts.el.appendChild(group.cloneNode(true))
+
+    this.trackGroupBCR = group.getBoundingClientRect()
+
+    console.log('>>', this.trackGroupBCR);
+
+    console.log('gsap', gsap);
+
+    gsap.to(this.opts.el, { x: -this.trackGroupBCR.width, duration: 8, ease: 'linear'}).repeat(-1)
   }
 
   getContainerWidth() {
@@ -79,6 +131,7 @@ export default class Marquee {
   }
 
   checkWidth() {
+    
     /*
       Behaviour : Test and try put text in the zone and try if fit in. If not update factor and try again until it fit then clone and animate
       How to put defined space between word ? (via attribute not css) 

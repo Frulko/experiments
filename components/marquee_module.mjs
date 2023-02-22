@@ -1,17 +1,20 @@
 import Marquee from "./marquee/Marquee.js";
 
+export const js = ['https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js', ];
 export const css = ['marquee/marquee.css'];
-export const connect = (element, { text, direction }) => {
+export const connect = (element, { text, direction, props }) => {
+
+  const initialHTML = element.innerHTML;
 
   element.innerHTML = /* html */`
-    <div class="Marquee__Container">
-      <div class="Marquee__Text"></div>
+    <div class="marquee__container">
+      ${initialHTML}
     </div>
   `;
 
   new Marquee({
-    el: element,
-    container: window,
+    el: element.querySelector('.marquee__container'),
+    container: element,
     text,
     destroyEl: false,
     directLoad: true,

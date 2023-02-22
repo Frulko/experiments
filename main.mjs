@@ -14,7 +14,7 @@ const loadComponent = (el, name) => {
       // m.css.map((file) => `${controllerPath}${file}`).forEach((file) => loadCSS(file, controllerName));
       for (let i = 0; i < m.css.length; i++) {
         const file = m.css[i];
-        await loadCSS(`${controllerPath}${file}`, controllerName);
+        await loadCSS(`${controllerPath}${file}`, controllerName + '_' + i);
       }
     }
 
@@ -22,7 +22,10 @@ const loadComponent = (el, name) => {
       // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of
       for (let i = 0; i < m.js.length; i++) {
         const file = m.js[i];
-        await loadJS(`${controllerPath}${file}`, controllerName);
+
+        const filePath = file.includes('http') ? file: `${controllerPath}${file}`;
+
+        await loadJS(filePath, controllerName + '_' + i);
       }
     }
 
