@@ -169,7 +169,7 @@ const loadJS = (path, moduleName) => {
  * how to share utils ? the script embed is local to a controller/module
  */
 
-class UISandbox extends HTMLElement {
+class SandboxBlock extends HTMLElement {
   constructor() {
     // Always call super first in constructor
     super();
@@ -178,6 +178,13 @@ class UISandbox extends HTMLElement {
   }
 
   connectedCallback() {
+
+    const infoEl = this.querySelector('sandbox-info');
+
+    if (infoEl) {
+      this.removeChild(infoEl);
+    }
+
     const children = this.innerHTML;
     this.innerHTML = '';
 
@@ -193,19 +200,62 @@ class UISandbox extends HTMLElement {
     this.appendChild(sandboxWrapperElement);
 
 
+    const bottomEl = document.createElement('div');
+    bottomEl.classList.add('sandbox__meta');
+
+
     if (this.hasAttribute('data-caption')) {
       const captionElement = document.createElement('h3');
       captionElement.classList.add('sandbox__caption');
       captionElement.innerText = this.getAttribute('data-caption');
-      this.appendChild(captionElement);
+      bottomEl.appendChild(captionElement);
     }
 
+    if (infoEl) {
+      bottomEl.appendChild(infoEl);
+    }
+    
+
+    this.appendChild(bottomEl);
+
     if (this.hasAttribute('data-component')) {
-      this.classList.add(`sandbox__${this.getAttribute('data-component')}`)
+      this.classList.add(`sandbox__${this.getAttribute('data-component')}`, 'loaded')
       autoplay && loadComponent(sandboxWrapperElement, this.getAttribute('data-component'));
+    } else {
+      this.classList.add('empty')
+      sandboxWrapperElement.innerHTML = 'No component found !'
     }
     
   }
 }
 
-customElements.define('ui-sandbox', UISandbox)
+customElements.define('sandbox-block', SandboxBlock)
+
+class SandboxInfo extends HTMLElement {
+  connectedCallback() {
+    const children = this.innerHTML;
+    this.innerHTML = '';
+
+
+    const buttonEl = document.createElement('button');
+    buttonEl.classList.add('d')
+    buttonEl.innerHTML = /* html */`
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
+      </svg>
+    `;
+
+    buttonEl.addEventListener('click', () => {
+      this.classList.toggle('active')
+    })
+
+    const contentEl = document.createElement('div');
+    contentEl.classList.add('a')
+    contentEl.innerHTML = children;
+
+    this.appendChild(buttonEl);
+    this.appendChild(contentEl);
+  }
+}
+
+customElements.define('sandbox-info', SandboxInfo)

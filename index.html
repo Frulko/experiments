@@ -9,15 +9,41 @@
   <link rel="stylesheet" href="main.css">
 </head>
 <body>
-  <!-- <ui-sandbox data-component="marquee" data-caption="Marquee" data-text="A simple guide to 🚀" data-direction="1">
+  <!-- <sandbox-block data-component="marquee" data-caption="Marquee" data-text="A simple guide to 🚀" data-direction="1">
     <p>Launch 3 2 1... 🚀</p>
-  </ui-sandbox> -->
+  </sandbox-block> -->
+  <header>
+    <h1>Frulko's Experiments</h1>
+    <p>Simple small front-end experiments</p>
+  </header>
 
-  <ui-sandbox data-component="marquee" data-caption="Marquee" data-text="A simple guide to 🚀" data-direction="1">
-    <p>🚀😺👩🏻‍🦼</p>
-  </ui-sandbox>
-  <!-- <ui-sandbox data-component="marquee" class="custom" data-caption="Marquee - reverse direction" data-text="A simple guide to 🚀" data-direction="-1"></ui-sandbox> -->
-  <!-- <ui-sandbox data-component="matter" loading="lazy" autoplay="true" data-caption="Matter.js - Hello world"></ui-sandbox> -->
+  <sandbox-block data-component="marquee" data-caption="Marquee">
+    <p>
+      <span>👩🏻‍🦼</span>
+      <span>Hello world 😺</span>
+      <span>from mjs component 🚀</span>
+    </p>
+    <sandbox-info>
+      <p>hovering the track slower it</p>
+    </sandbox-info>
+  </sandbox-block>
+
+  <sandbox-block data-component="marquee" data-caption="Marquee" data-direction="1">
+    <p>
+      <span>A simple guide to 🚀</span>
+    </p>
+  </sandbox-block>
+
+  <sandbox-block data-caption="Nodal UI">
+    <sandbox-info>
+      <p>arrow left: lower</p>
+      <p>arrow left: faster</p>
+    </sandbox-info>
+  </sandbox-block>
+  <sandbox-block data-caption="Font size fitting"></sandbox-block>
+  <sandbox-block data-caption="Font size fitting on curved line"></sandbox-block>
+  <!-- <sandbox-block data-component="marquee" class="custom" data-caption="Marquee - reverse direction" data-text="A simple guide to 🚀" data-direction="-1"></sandbox-block> -->
+  <sandbox-block data-component="matter" loading="lazy" autoplay="true" data-caption="Matter.js - Sample demo"></sandbox-block>
 
 
   <script src="main.mjs" type="module"></script>

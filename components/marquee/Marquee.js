@@ -84,7 +84,7 @@ export default class Marquee {
 
     console.log('gsap', gsap);
 
-    gsap.to(this.opts.el, { x: -this.trackGroupBCR.width, duration: 8, ease: 'linear'}).repeat(-1)
+    gsap.to(this.opts.el, { x: -this.trackGroupBCR.width, duration: 25, ease: 'linear'}).repeat(-1)
   }
 
   getContainerWidth() {
