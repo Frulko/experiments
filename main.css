@@ -30,7 +30,7 @@ header p{
 sandbox-block,
 .proto__sandbox{
   position: relative;
-  width: 100%;
+  width: calc(100% - 2rem);
   max-width: 800px; 
 }
 

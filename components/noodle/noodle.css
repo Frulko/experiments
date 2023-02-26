@@ -1,0 +1,153 @@
+
+.sandbox__noodle .sandbox__wrapper{
+  height: 400px;
+}
+
+.GraphViewer{
+  flex: 1 auto;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  user-select: none;
+
+  // Just to test without background : background-color: rgba(255, 255, 255, 0.8);
+}
+
+.GraphViewer__background{
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  background-color: #e5e5f7;
+  opacity: 0.4;
+  background-image: radial-gradient(#14164a 0.5px, #e5e5f7 0.5px);
+  background-size: 10px 10px;
+  width: 100%;
+  height: 100%;
+}
+
+.GraphViewer *:not(input textarea){
+  user-select: none;
+}
+.GraphViewer__SelectionBox{
+  position: absolute;
+  top:0;
+  left: 0;
+  border: 0.0625rem solid tomato;
+  background-color: rgba(tomato, .3);
+  pointer-events: none;
+  opacity: 1;
+  // transition: transform .05s ease-out;
+}
+
+.GraphViewer__SelectionBox--hide{
+  opacity: 0;
+}
+
+.node {
+  /* width: 1px;
+  height: 1px; */
+  /* pointer-events: none; */
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  box-shadow: 0px 0px 20px 1px #d9d5d5;
+}
+
+.node:empty{
+  width: 1px;
+  height: 1px;
+  border: unset;
+  border-radius: unset;
+  box-shadow: unset;
+  pointer-events: none;
+}
+
+.node:empty:after {
+  content: '';
+  width: 32px;
+  height: 32px;
+  display: block;
+  transform: translate(-16px, -16px);
+  border-radius: 32px;
+  background: var(--node-background, #fff);
+  border: 2px solid #aaa;
+  pointer-events: all;
+}
+.GraphViewer.draggin .node * {
+  pointer-events: none;
+}
+.node:focus {
+  border-color: tomato;
+  outline: none;
+}
+.node *{
+  pointer-events: all;
+}
+
+.node input {
+  margin-top: 10px;
+  width: 100%;
+  border: 1px solid black;
+}
+.node.activate {
+  background-color: rgba(255, 99, 71, .2);
+  z-index: 999;
+  border: 1px solid #000;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.node.activate::after {
+  background-color: rgba(255, 99, 71, .2);
+}
+.node.drop {
+  background-color: rgba(50, 205, 50, .2);
+}
+.node.phantom {
+  pointer-events: none;
+  background-color: rgba(30, 144, 255, .2);
+  /* display: none; */
+}
+
+
+
+.node--selected{
+  // z-index: 9999;
+  // pointer-events: none;
+  background-color: dodgerblue;
+}
+
+.node.hover{
+  background: tomato;
+}
+
+
+.node--walls{
+  --node-background: dodgerblue;
+}
+
+.node--emitter{
+  --node-background: green;
+}
+
+.GraphViewer__segments{
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.segment{
+  pointer-events: all;
+  width: 100px;
+  height: 20px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: lightblue;
+  transform-origin: top left;
+}

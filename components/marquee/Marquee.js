@@ -80,11 +80,11 @@ export default class Marquee {
 
     this.trackGroupBCR = group.getBoundingClientRect()
 
-    console.log('>>', this.trackGroupBCR);
+    // console.log('>>', this.trackGroupBCR);
 
-    console.log('gsap', gsap);
+    // console.log('gsap', gsap);
 
-    gsap.to(this.opts.el, { x: -this.trackGroupBCR.width, duration: 25, ease: 'linear'}).repeat(-1)
+    gsap.to(this.opts.el, { x: -this.trackGroupBCR.width, duration: 15, ease: 'linear'}).repeat(-1)
   }
 
   getContainerWidth() {

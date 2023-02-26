@@ -7,6 +7,30 @@
   <!-- <script src="https://cdn.tailwindcss.com"></script> -->
   <link rel="stylesheet" href="reset.css">
   <link rel="stylesheet" href="main.css">
+  <!-- Start Single Page Apps for GitHub Pages -->
+  <script type="text/javascript">
+    // Single Page Apps for GitHub Pages
+    // MIT License
+    // https://github.com/rafgraph/spa-github-pages
+    // This script checks to see if a redirect is present in the query string,
+    // converts it back into the correct url and adds it to the
+    // browser's history using window.history.replaceState(...),
+    // which won't cause the browser to attempt to load the new url.
+    // When the single page app is loaded further down in this file,
+    // the correct url will be waiting in the browser's history for
+    // the single page app to route accordingly.
+    (function(l) {
+      if (l.search[1] === '/' ) {
+        var decoded = l.search.slice(1).split('&').map(function(s) { 
+          return s.replace(/~and~/g, '&')
+        }).join('?');
+        window.history.replaceState(null, null,
+            l.pathname.slice(0, -1) + decoded + l.hash
+        );
+      }
+    }(window.location))
+  </script>
+  <!-- End Single Page Apps for GitHub Pages -->
 </head>
 <body>
   <!-- <sandbox-block data-component="marquee" data-caption="Marquee" data-text="A simple guide to 🚀" data-direction="1">
@@ -16,6 +40,13 @@
     <h1>Frulko's Experiments</h1>
     <p>Simple small front-end experiments</p>
   </header>
+
+  <sandbox-block data-caption="Nodal UI" data-component="noodle">
+    <sandbox-info>
+      <p>arrow left: lower</p>
+      <p>arrow left: faster</p>
+    </sandbox-info>
+  </sandbox-block>
 
   <sandbox-block data-component="marquee" data-caption="Marquee">
     <p>
@@ -34,16 +65,19 @@
     </p>
   </sandbox-block>
 
-  <sandbox-block data-caption="Nodal UI">
-    <sandbox-info>
-      <p>arrow left: lower</p>
-      <p>arrow left: faster</p>
-    </sandbox-info>
+  <sandbox-block data-component="marquee" data-caption="Marquee with HTML images" data-direction="1">
+    <div class="" style="display: flex; gap: 20px; margin-right: 20px;">
+      <img src="./assets/img/site.jpeg" width="200" alt="">
+      <a href=""><img src="./assets/img/site.jpeg" width="200" alt=""></a>
+      <img src="./assets/img/site.jpeg" width="200" alt="">
+    </div>
   </sandbox-block>
-  <sandbox-block data-caption="Font size fitting"></sandbox-block>
-  <sandbox-block data-caption="Font size fitting on curved line"></sandbox-block>
+
+
+  <!-- <sandbox-block data-caption="Font size fitting"></sandbox-block> -->
+  <!-- <sandbox-block data-caption="Font size fitting on curved line"></sandbox-block> -->
   <!-- <sandbox-block data-component="marquee" class="custom" data-caption="Marquee - reverse direction" data-text="A simple guide to 🚀" data-direction="-1"></sandbox-block> -->
-  <sandbox-block data-component="matter" loading="lazy" autoplay="true" data-caption="Matter.js - Sample demo"></sandbox-block>
+  <!-- <sandbox-block data-component="matter" loading="lazy" autoplay="true" data-caption="Matter.js - Sample demo"></sandbox-block> -->
 
 
   <script src="main.mjs" type="module"></script>

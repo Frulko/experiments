@@ -66,6 +66,7 @@ body{
   -webkit-perspective: 1000;
   -webkit-backface-visibility: hidden;
   -webkit-transform-style: preserve-3d;
+  will-change: transform;
   /* width: 100vw; */
   /* overflow-x: hidden */
 
