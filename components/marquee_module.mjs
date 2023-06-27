@@ -2,8 +2,8 @@ import Marquee from "./marquee/Marquee.js";
 
 export const js = ['https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js', ];
 export const css = ['marquee/marquee.css'];
-export const connect = (element, { text, direction, props }) => {
-
+export const connect = (element, { text, direction, props, toolbar }) => {
+  console.log('toolbar', toolbar);
   const initialHTML = element.innerHTML;
 
   element.innerHTML = /* html */`
@@ -11,6 +11,10 @@ export const connect = (element, { text, direction, props }) => {
       ${initialHTML}
     </div>
   `;
+
+  if (toolbar) {
+    toolbar.code.setContent(element.innerHTML);
+  }
 
   new Marquee({
     el: element.querySelector('.marquee__container'),

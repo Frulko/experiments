@@ -94,11 +94,12 @@ sandbox-block + sandbox-block,
   margin-top: 32px;
 }
 
-
+sandbox-code,
 sandbox-info{ 
   position: relative;
 }
 
+sandbox-code .a,
 sandbox-info .a{
   transition: opacity .12s ease-out;
   opacity: 0;
@@ -114,22 +115,62 @@ sandbox-info .a{
   border: 1px solid #ddd;
   white-space: nowrap;
 }
+
+sandbox-code button,
 sandbox-info button{
   width: 1.25rem;
   height: 1.25rem;
   border: 0px;
   background: #ededed;
+  border: 1px solid #ccc;
   border-radius: 1rem;
-  padding: 0;
+  padding: 2px;
   color: #6f6f6f;
   cursor: pointer;
 }
 
+sandbox-code.active .a,
 sandbox-info.active .a{
   opacity: 1;
   pointer-events: all;
 }
 
+sandbox-code .a p + p,
 sandbox-info .a p + p{
   margin-top: 4px;
+}
+
+.toolbar{
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+sandbox-code.active button,
+sandbox-info.active button{
+  background: #000;
+  border: 1px solid #000;
+}
+
+sandbox-code.active svg,
+sandbox-info.active svg{
+  fill: white;
+}
+
+div.code {
+  white-space: pre;
+}
+
+pre, code {
+  white-space: pre;
+  overflow-x: scroll;
+}
+.hljs {
+  display: inline-block;
+  overflow-x: scroll;
+  padding: 0.5em;
+  padding-right: 100%;
+  background: #002b36;
+  color: #839496;
+  -webkit-text-size-adjust: none;
 }
