@@ -1,3 +1,6 @@
+html, body {
+  overscroll-behavior-x: none;
+}
 
 .sandbox__noodle .sandbox__wrapper{
   height: 400px;
