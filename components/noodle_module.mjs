@@ -1,11 +1,11 @@
 import * as Noodle from "./noodle/Noodle.js";
 
-export const js = [ ];
-export const css = [ './noodle/noodle.css' ];
+export const js = [];
+export const css = ["./noodle/noodle.css"];
 export const connect = (element, { text, direction, props }) => {
   const initialHTML = element.innerHTML;
 
-  element.innerHTML = /* html */`
+  element.innerHTML = /* html */ `
     <div data-root="true" class="GraphViewer">
       <div class="GraphViewer__background"></div>
       <div class="GraphViewer__bind">
@@ -17,55 +17,47 @@ export const connect = (element, { text, direction, props }) => {
     </div>
   `;
 
-
-
   let boardOrigin = [0, 0];
   let scaleFactor = 0.56155;
   const items = [];
 
   const onUpdateNodePosition = (e) => {
     // console.log('onUpdateNodePosition', dndInstance.nodes)
-    document.querySelectorAll('.node').forEach((nodeEl) => {
-  
-  
-      const id = nodeEl.getAttribute('data-node');
-      const source = nodeEl.getAttribute('data-source');
-      const x = +nodeEl.getAttribute('data-x');
-      const y = +nodeEl.getAttribute('data-y');
-  
+    document.querySelectorAll(".node").forEach((nodeEl) => {
+      const id = nodeEl.getAttribute("data-node");
+      const source = nodeEl.getAttribute("data-source");
+      const x = +nodeEl.getAttribute("data-x");
+      const y = +nodeEl.getAttribute("data-y");
+
       // const s = sources.find((sourceGroup) => sourceGroup.label === source);
-      console.log('-->', id, source, x, y,)
-  
+      console.log("-->", id, source, x, y);
+
       // const vecA = s.points.find((point) => point.id === id);
       // vecA.x = x;
       // vecA.y = y;
     });
-  
-  }
+  };
 
-  const backgroundEl = document.querySelector('.GraphViewer__background');
-  const onUpdateBoardOrigin = ({k, x, y}) => {
-    if (x === 0 && y === 0 ) {
+  const backgroundEl = document.querySelector(".GraphViewer__background");
+  const onUpdateBoardOrigin = ({ k, x, y }) => {
+    if (x === 0 && y === 0) {
       return;
     }
 
     // localStorage.setItem('board', JSON.stringify({k, x, y}));
 
-
     const size = 30;
     backgroundEl.style.backgroundSize = `${size * k}px ${size * k}px`;
     backgroundEl.style.backgroundPosition = `${x}px ${y}px`;
-  }
-
+  };
 
   const onKeyEvent = (state, evt, selection) => {
     // console.log('--> event', state, evt, selection);
-
-  }
+  };
 
   const onScaleFactor = (e) => {
-    console.log('onScaleFactor', e)
-  }
+    console.log("onScaleFactor", e);
+  };
 
   Noodle.setProjectedViewport(1000, 1000);
   Noodle.initNodes();
@@ -80,8 +72,5 @@ export const connect = (element, { text, direction, props }) => {
     onKeyEvent
   );
 
-  console.log('dndInstance', dndInstance)
-  
-}
-
-
+  // console.log('dndInstance', dndInstance)
+};

@@ -1,0 +1,39 @@
+.sandbox__selectionBox .sandbox__wrapper {
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+}
+
+/* .GraphViewer__SelectionBox {
+  border: 1px solid #000;
+} */
+
+.selection_box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  outline: 1px solid #000;
+
+  &.hide {
+    display: none;
+  }
+}
+
+.box {
+  width: 100px;
+  height: 100px;
+  background-color: #000;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  cursor: pointer;
+  transition: 0.3s;
+
+  &.active {
+    outline: 2px solid red;
+  }
+}

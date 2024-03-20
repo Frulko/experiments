@@ -1,12 +1,13 @@
 import Marquee from "./marquee/Marquee.js";
 
-export const js = ['https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js', ];
-export const css = ['marquee/marquee.css'];
+export const js = [
+  "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js",
+];
+export const css = ["marquee/marquee.css"];
 export const connect = (element, { text, direction, props, toolbar }) => {
-  console.log('toolbar', toolbar);
   const initialHTML = element.innerHTML;
 
-  element.innerHTML = /* html */`
+  element.innerHTML = /* html */ `
     <div class="marquee__container">
       ${initialHTML}
     </div>
@@ -17,14 +18,14 @@ export const connect = (element, { text, direction, props, toolbar }) => {
   }
 
   new Marquee({
-    el: element.querySelector('.marquee__container'),
+    el: element.querySelector(".marquee__container"),
     container: element,
     text,
     destroyEl: false,
     directLoad: true,
     autoplay: true,
-    fontFamily: 'system-ui',
+    fontFamily: "system-ui",
     direction,
     timingAnimation: [1, 100], // 1 sec for 500px
   });
-}
+};
