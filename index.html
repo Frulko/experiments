@@ -24,12 +24,19 @@
         var decoded = l.search.slice(1).split('&').map(function(s) { 
           return s.replace(/~and~/g, '&')
         }).join('?');
-        console.log('->> decoded', decoded, l.pathname.slice(0, -1) + decoded + l.hash);
+        window.decoded = decoded;
+        window.hash = l.hash;
         window.history.replaceState(null, null,
             l.pathname.slice(0, -1) + decoded + l.hash
         );
       }
     }(window.location))
+
+
+    const params = new URL(location.href).searchParams;
+    if (params.size > 0 && params.get('route')) {
+      window.decoded = '/' + params.get('route');
+    }
   </script>
   <!-- End Single Page Apps for GitHub Pages -->
 </head>
@@ -43,11 +50,20 @@
     <p>Simple small front-end experiments</p>
   </header>
 
-  <sandbox-block data-caption="Submenu triangle" data-component="shortcuts">
+  <menu style="display: flex; gap: 10px; align-items: center; list-style: none;">
+    <li>
+      <a-link to="/" >Home</a-link>
+    </li>
+    <li>
+      <a-link to="/menu-triangle" >Menu</a-link>
+    </li>
+  </menu>
+
+  <sandbox-block data-route="/menu-triangle" data-caption="Submenu triangle" data-component="shortcuts">
 
   </sandbox-block>
 
-  <sandbox-block data-caption="Map elevation" data-component="shortcuts">
+  <sandbox-block data-route="/map-elevation" data-caption="Map elevation" data-component="shortcuts">
 
   </sandbox-block>
 

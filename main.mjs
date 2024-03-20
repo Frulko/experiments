@@ -308,6 +308,22 @@ class SandboxBlock extends HTMLElement {
     const bottomEl = document.createElement("div");
     bottomEl.classList.add("sandbox__meta");
 
+    if (this.hasAttribute("data-route")) {
+      const route = this.getAttribute("data-route");
+
+      if (window.decoded !== route) {
+        this.style.display = "none";
+        return;
+      }
+
+      // this.parentNode.removeChild(this);
+    } else {
+      if (window.decoded && window.decoded.length > 0) {
+        this.style.display = "none";
+        return;
+      }
+    }
+
     if (this.hasAttribute("data-caption")) {
       const captionElement = document.createElement("h3");
       captionElement.classList.add("sandbox__caption");
@@ -492,3 +508,19 @@ class SandboxCode extends HTMLElement {
 }
 
 customElements.define("sandbox-code", SandboxCode);
+
+class Link extends HTMLElement {
+  connectedCallback() {
+    const children = this.innerHTML;
+
+    let url = this.getAttribute("to");
+    if (location.hostname === "127.0.0.1") {
+      url = url.replace("/", url.length > 1 ? "?route=" : "?");
+    }
+
+    this.innerHTML = /* html */ `
+      <a href="${url}">${children}</a>
+    `;
+  }
+}
+customElements.define("a-link", Link);
