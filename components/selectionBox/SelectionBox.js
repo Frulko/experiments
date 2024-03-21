@@ -1,3 +1,8 @@
+import {
+  positionningRect2Dom,
+  rectPositionToCSSProperties,
+  getValueByScale,
+} from "./positionningRect2Dom.js";
 export default class SelectionBox {
   selectionAreaBox = {
     x: 0,
@@ -13,7 +18,15 @@ export default class SelectionBox {
   isDragging = false;
   mouseDown = false;
 
-  constructor() {}
+  selectionHandlerCallback = () => {};
+
+  constructor(opts) {
+    this.opts = opts;
+  }
+
+  onSelection(callback) {
+    this.selectionHandlerCallback = callback;
+  }
 
   setContainer(container) {
     this.container = container;
@@ -55,7 +68,8 @@ export default class SelectionBox {
   }
 
   checkCollisions() {
-    const boxes = document.querySelectorAll(".box");
+    const collidedBoxes = [];
+    const boxes = document.querySelectorAll(this.opts.target); // check if element
     boxes.forEach((box) => {
       // if (this.isColliding(this.selectionAreaEl, box)) {
       //   console.log("Collision detected with:", box);
@@ -64,11 +78,11 @@ export default class SelectionBox {
       //   console.log("No collision detected with:", box);
       // }
 
-      box.classList.toggle(
-        "active",
-        this.isColliding(this.selectionAreaEl, box)
-      );
+      if (this.isColliding(this.selectionAreaEl, box)) {
+        collidedBoxes.push(box);
+      }
     });
+    this.selectionHandlerCallback(collidedBoxes);
   }
 
   handleMouseDown(event) {
